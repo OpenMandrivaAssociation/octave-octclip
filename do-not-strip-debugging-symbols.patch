@@ -1,0 +1,19 @@
+Description: Do not strip the debugging symbols from _oc_polybool.oct
+ Also, include the -g option to enable debugging option for all
+ compilers.
+Author: Rafael Laboissiere <rafael@debian.org>
+Forwarded: no
+Last-Update: 2018-12-29
+
+--- octave-octclip-1.0.8.orig/src/Makefile
++++ octave-octclip-1.0.8/src/Makefile
+@@ -33,7 +33,7 @@ compile:
+ 	$(MKOCTFILE) -c -I. segmento.c -o segmento.o
+ 	$(MKOCTFILE) -c -I. ventorno.c -o ventorno.o
+ 	$(MKOCTFILE) -c -I. proyecaux.c -o proyecaux.o
+-	$(MKOCTFILE) -s -I. _oc_polybool.cc *.o
++	$(MKOCTFILE) -g -I. _oc_polybool.cc *.o
+ 
+ .PHONY: clean
+ clean:
+

@@ -1,18 +1,21 @@
 %define octpkg octclip
 
-# Exclude .oct files from provides
-%define __provides_exclude_from ^%{octpkglibdir}/.*.oct$
-
 Summary:	Functions for boolean operations with polygons in Octave
 Name:		octave-%{octpkg}
-Version:	1.0.8
+Version:	2.0.1
 Release:	1
 Source0:	http://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
+# https://savannah.gnu.org/bugs/index.php?61483
+Patch0:		honor-cflags-cxxflags.patch
+# https://savannah.gnu.org/bugs/index.php?61484
+Patch1:		format-security-error.patch
+# https://savannah.gnu.org/bugs/index.php?55343
+Patch2:		do-not-strip-debugging-symbols.patch
 License:	GPLv3+ and BSD
 Group:		Sciences/Mathematics
 Url:		https://octave.sourceforge.io/%{octpkg}/
 
-BuildRequires:	octave-devel >= 2.9.7
+BuildRequires:	octave-devel >= 3.6.0
 
 Requires:	octave(api) = %{octave_api}
 
@@ -25,14 +28,31 @@ using the Greiner-Hormann algorithm.
 
 This package is part of external Octave-Forge collection.
 
+%files
+%license COPYING
+%doc NEWS
+%dir %{octpkglibdir}
+%{octpkglibdir}/*
+%dir %{octpkgdir}
+%{octpkgdir}/*
+
+#---------------------------------------------------------------------------
+
 %prep
-%setup -qcT
+%autosetup -p1 -n %{octpkg}-%{version}
+
+# remove backup files
+find . -name \*~ -delete
 
 %build
-%octave_pkg_build -T
+%set_build_flags
+%octave_pkg_build
 
 %install
 %octave_pkg_install
+
+%check
+%octave_pkg_check
 
 %post
 %octave_cmd pkg rebuild
@@ -42,12 +62,4 @@ This package is part of external Octave-Forge collection.
 
 %postun
 %octave_cmd pkg rebuild
-
-%files
-%dir %{octpkglibdir}
-%{octpkglibdir}/*
-%dir %{octpkgdir}
-%{octpkgdir}/*
-%doc %{octpkg}-%{version}/NEWS
-%doc %{octpkg}-%{version}/COPYING
 

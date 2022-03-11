@@ -1,0 +1,45 @@
+Description: Use string literal in call to error() function
+ Compilation errors are triggered when option -Werror=format-security
+ is used.
+Author: Rafael Laboissière <rafael@debian.org>
+Forwarded: no
+Last-Update: 2021-11-14
+
+--- octave-octclip-2.0.1.orig/src/_oc_polybool.cc
++++ octave-octclip-2.0.1/src/_oc_polybool.cc
+@@ -113,7 +113,7 @@ DEFUN_DLD(_oc_polybool,args,,HELPTEXT)
+                 "Incorrect number of input arguments\n\t"
+                 "See help _oc_polybool");
+         //error message
+-        error(errorText);
++        error("%s", errorText);
+     }
+     else
+     {
+@@ -161,7 +161,7 @@ DEFUN_DLD(_oc_polybool,args,,HELPTEXT)
+             //error text
+             sprintf(&errorText[strlen(errorText)],"Error in memory allocation");
+             //error message
+-            error(errorText);
++            error("%s", errorText);
+             //exit
+             return outputList;
+         }
+@@ -199,7 +199,7 @@ DEFUN_DLD(_oc_polybool,args,,HELPTEXT)
+                     "The third input argument (op=%s) is not correct",
+                     opchar.c_str());
+             //error message
+-            error(errorText);
++            error("%s", errorText);
+             //exit
+             return outputList;
+         }
+@@ -217,7 +217,7 @@ DEFUN_DLD(_oc_polybool,args,,HELPTEXT)
+             //error text
+             sprintf(&errorText[strlen(errorText)],"Error in memory allocation");
+             //error message
+-            error(errorText);
++            error("%s", errorText);
+             //exit
+             return outputList;
+         }
