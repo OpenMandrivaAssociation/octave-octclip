@@ -4,7 +4,7 @@ Summary:	Functions for boolean operations with polygons in Octave
 Name:		octave-%{octpkg}
 Version:	2.0.1
 Release:	1
-Source0:	http://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
+Source0:	https://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
 # https://savannah.gnu.org/bugs/index.php?61483
 Patch0:		honor-cflags-cxxflags.patch
 # https://savannah.gnu.org/bugs/index.php?61484
@@ -13,7 +13,7 @@ Patch1:		format-security-error.patch
 Patch2:		do-not-strip-debugging-symbols.patch
 License:	GPLv3+ and BSD
 Group:		Sciences/Mathematics
-Url:		https://octave.sourceforge.io/%{octpkg}/
+Url:		https://packages.octave.org/%{octpkg}/
 
 BuildRequires:	octave-devel >= 3.6.0
 
@@ -25,8 +25,6 @@ Requires(postun): octave
 %description
 This package allows to do boolean operations with polygons in Octave
 using the Greiner-Hormann algorithm.
-
-This package is part of external Octave-Forge collection.
 
 %files
 %license COPYING
