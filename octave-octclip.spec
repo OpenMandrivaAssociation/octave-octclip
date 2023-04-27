@@ -1,21 +1,22 @@
-%define octpkg octclip
+%global octpkg octclip
 
 Summary:	Functions for boolean operations with polygons in Octave
-Name:		octave-%{octpkg}
-Version:	2.0.1
+Name:		octave-octclip
+Version:	2.0.3
 Release:	1
-Source0:	https://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
-# https://savannah.gnu.org/bugs/index.php?61483
-Patch0:		honor-cflags-cxxflags.patch
-# https://savannah.gnu.org/bugs/index.php?61484
-Patch1:		format-security-error.patch
-# https://savannah.gnu.org/bugs/index.php?55343
-Patch2:		do-not-strip-debugging-symbols.patch
 License:	GPLv3+ and BSD
 Group:		Sciences/Mathematics
-Url:		https://packages.octave.org/%{octpkg}/
+#Url:		https://packages.octave.org/octclip/
+Url:		https://bitbucket.org/jgpallero/octclip/src/master/
+Source0:	https://bitbucket.org/jgpallero/octclip/downloads/octclip-%{version}.tar.gz
+# https://savannah.gnu.org/bugs/index.php?61483
+#Patch0:		honor-cflags-cxxflags.patch
+# https://savannah.gnu.org/bugs/index.php?61484
+#Patch1:		format-security-error.patch
+# https://savannah.gnu.org/bugs/index.php?55343
+Patch2:		do-not-strip-debugging-symbols.patch
 
-BuildRequires:	octave-devel >= 3.6.0
+BuildRequires:  octave-devel >= 3.6.0
 
 Requires:	octave(api) = %{octave_api}
 
@@ -23,24 +24,22 @@ Requires(post): octave
 Requires(postun): octave
 
 %description
-This package allows to do boolean operations with polygons in Octave
-using the Greiner-Hormann algorithm.
+This package allows to do boolean operations with polygons using the
+Greiner-Hormann algorithm.
 
 %files
 %license COPYING
 %doc NEWS
-%dir %{octpkglibdir}
-%{octpkglibdir}/*
 %dir %{octpkgdir}
 %{octpkgdir}/*
+%dir %{octpkglibdir}
+%{octpkglibdir}/*
+#{_metainfodir}/*.metainfo.xml
 
 #---------------------------------------------------------------------------
 
 %prep
 %autosetup -p1 -n %{octpkg}-%{version}
-
-# remove backup files
-find . -name \*~ -delete
 
 %build
 %set_build_flags
