@@ -3,7 +3,7 @@
 Summary:	Functions for boolean operations with polygons in Octave
 Name:		octave-octclip
 Version:	2.0.3
-Release:	1
+Release:	2
 License:	GPLv3+ and BSD
 Group:		Sciences/Mathematics
 #Url:		https://packages.octave.org/octclip/
